@@ -57,3 +57,7 @@ routes.get("/pikachu", (req, res) => {
   res.write(`</body></html>`);
 });
 ```
+
+# graphql
+
+https://github.com/arangodb-foxx/demo-graphql/blob/master/schema.js
