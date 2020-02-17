@@ -1,0 +1,15 @@
+{
+  "main": "index.js",
+  "scripts": {
+    "setup": "scripts/setup.js",
+    "teardown": "scripts/teardown.js",
+    "createUser": "scripts/createUser.js"
+  },
+  "configuration": {
+    "pbkdf2WorkFactor": {
+      "description": "PBKDF2 work factor for scaling password security",
+      "type": "number",
+      "default": 1
+    }
+  }
+}
