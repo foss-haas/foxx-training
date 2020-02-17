@@ -17,7 +17,7 @@ routes.get("/", (req, res) => {
 
 ```sh
 echo '{"main":"index.js"}' > manifest.json
-echo '{"compilerOptions":{"allowJs":true}}' > tsconfig.json
+echo '{"compilerOptions":{"allowJs":true,"noEmit":true}}' > tsconfig.json
 echo '{"private":true}' > package.json
 echo 'node_modules/**' > .foxxignore
 npm install -D @types/arangodb @types/joi
