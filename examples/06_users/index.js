@@ -11,5 +11,5 @@ context.use(
   })
 );
 
-context.use("/users", require("./routes/users"), "users").tag("users");
-context.use("/auth", require("./routes/auth"), "auth").tag("auth");
+context.use("/users", require("./routes/users"), "users").tag("Users");
+context.use("/auth", require("./routes/auth"), "auth").tag("Authentication");

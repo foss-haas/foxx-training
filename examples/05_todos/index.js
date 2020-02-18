@@ -13,12 +13,12 @@ routes
   .get("/", (req, res) => {
     res.json(
       query`
-      FOR todo IN ${Todos}
-      SORT todo.created ASC
-      RETURN todo._key
-    `
+        FOR todo IN ${Todos}
+        SORT todo.created ASC
+        RETURN { key: todo._key, label: todo.label }
+      `
         .toArray()
-        .map(key => ({ key, url: req.makeAbsolute(key) }))
+        .map(({ key, label }) => ({ key, label, url: req.makeAbsolute(key) }))
     );
   })
   .response(joi.array().items(joi.string()), "List of todo items")
@@ -29,6 +29,7 @@ routes
     const { label, done } = req.body;
     const created = Date.now();
     const { _key } = Todos.save({ created, label, done });
+    res.status(201);
     res.json({ _key, created, label, done });
   })
   .body(
@@ -38,6 +39,7 @@ routes
     })
   )
   .response(
+    201,
     joi.object().keys({
       _key: joi.string(),
       created: joi.number().integer(),
@@ -88,7 +90,7 @@ routes
       if (e.errorNum !== errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
         res.throw(e);
       }
-      res.status(404);
+      res.throw(404, "Todo item does not exist");
     }
   })
   .pathParam("key", joi.string())
@@ -106,7 +108,7 @@ routes
       if (e.errorNum !== errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
         res.throw(e);
       }
-      res.status(404);
+      res.throw(404, "Todo item does not exist");
     }
   })
   .pathParam("key", joi.string())

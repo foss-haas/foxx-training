@@ -38,6 +38,7 @@ routes
       const user = query`
         FOR user IN ${Users}
         FILTER user.username == ${username}
+        LIMIT 1
         RETURN user
       `.next();
       if (!user || !auth.verify(user.authData, password)) {
